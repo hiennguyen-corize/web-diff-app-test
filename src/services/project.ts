@@ -45,6 +45,20 @@ export const addProject = async (
     throw new AxiosError('Missing or empty name');
   }
 
+  // Validate name length (min 3, max 100 characters)
+  const trimmedName = name.trim();
+  if (trimmedName.length < 3) {
+    throw new AxiosError('Project name must be at least 3 characters long');
+  }
+  if (trimmedName.length > 100) {
+    throw new AxiosError('Project name must not exceed 100 characters');
+  }
+
+  // Validate description length if provided (max 500 characters)
+  if (description && description.trim().length > 500) {
+    throw new AxiosError('Description must not exceed 500 characters');
+  }
+
   const currentDate = new Date().toISOString();
 
   const newProject = {
