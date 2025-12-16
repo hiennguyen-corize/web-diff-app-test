@@ -1,0 +1,1 @@
+export { ScreenshotOptionsSetting } from './ScreenshotOptionsSetting';

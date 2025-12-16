@@ -1,0 +1,13 @@
+node_modules
+.next
+.github
+.husky
+Dockerfile*
+docker-compose*
+.dockerignore
+.git
+.gitignore
+README.md
+LICENSE
+.vscode
+.env

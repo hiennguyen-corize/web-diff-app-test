@@ -1,0 +1,19 @@
+if (!process.env.STRIPE_PUBLISHABLE_KEY) {
+  throw new Error('STRIPE_PUBLISHABLE_KEY is not set');
+}
+
+if (!process.env.STRIPE_SUBSCRIPTION_PRICING_TABLE_ID) {
+  throw new Error('STRIPE_SUBSCRIPTION_PRICING_TABLE_ID is not set');
+}
+
+if (!process.env.STRIPE_ADD_ONS_PRICING_TABLE_ID) {
+  throw new Error('STRIPE_ADD_ONS_PRICING_TABLE_ID is not set');
+}
+
+export const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY;
+
+export const STRIPE_SUBSCRIPTION_PRICING_TABLE_ID =
+  process.env.STRIPE_SUBSCRIPTION_PRICING_TABLE_ID;
+
+export const STRIPE_ADD_ONS_PRICING_TABLE_ID =
+  process.env.STRIPE_ADD_ONS_PRICING_TABLE_ID;

@@ -1,0 +1,175 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.7.0
+  slack: circleci/slack@4.4.4
+
+executors:
+  docker-executor:
+    docker:
+      - image: node:20.15.1-alpine
+
+jobs:
+  build_and_deploy:
+    executor: docker-executor
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: Install curl, jq and docker-cli
+          command: |
+            apk add curl jq docker-cli
+
+      - run:
+          name: Build Docker Image and Extract dist
+          command: |
+            chmod +x buildProd.sh
+            npm run build:prod
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+      - run:
+          name: Install Firebase CLI
+          command: npm install firebase-tools
+
+      - run:
+          name: Deploy to Firebase Hosting
+          command: npx firebase use $FIREBASE_PROJECT_ID && npx firebase deploy --only hosting --token $FIREBASE_TOKEN
+
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "attachments": [
+                {
+                  "color": "#f44336",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Deployment failed! :x:",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "fields": [
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Project: *\n${CIRCLE_PROJECT_REPONAME}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Job: *\n${CIRCLE_JOB}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "section",
+                      "fields": [
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Branch: *\n${CIRCLE_BRANCH}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Author: *\n${CIRCLE_USERNAME}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "actions",
+                      "elements": [
+                        {
+                          "type": "button",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "View Job :eyes:",
+                            "emoji": true
+                          },
+                          "url": "${CIRCLE_BUILD_URL}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "attachments": [
+                {
+                  "color": "#4caf50",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Deployment Successful! :tada:",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "fields": [
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Project: *\n${CIRCLE_PROJECT_REPONAME}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Job: *\n${CIRCLE_JOB}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "section",
+                      "fields": [
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Branch: *\n${CIRCLE_BRANCH}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Author: *\n${CIRCLE_USERNAME}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "actions",
+                      "elements": [
+                        {
+                          "type": "button",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "View Job :eyes:",
+                            "emoji": true
+                          },
+                          "url": "${CIRCLE_BUILD_URL}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+
+workflows:
+  version: 2
+  deploy_on_merge_master:
+    jobs:
+      - build_and_deploy:
+          filters:
+            branches:
+              only:
+                - master

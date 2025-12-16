@@ -1,0 +1,12 @@
+export const MIN_PASSWORD_LENGTH = 6;
+export const DEFAULT_THRESHOLD = 0.8;
+export const SCROLL_Y_DISTANCE = 200;
+export const DEFAULT_LIMIT = 10;
+export const DEFAULT_PAGE = 1;
+export const MODAL_ID = 'root-modal';
+export const LOADING_ID = 'root-loading';
+export const MODAL_WIDTH = 762;
+export const USER_BASIC_INFO_PROMISES_POOL_CONCURRENCY = 1;
+export const TOOLTIP_ID = 'tooltip-';
+export const PREFETCH_IMAGE_CLASS = 'prefetch-image';
+export const TOOLTIP_DELAY_SHOW = 500;

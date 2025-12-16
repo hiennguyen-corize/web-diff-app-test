@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+.tsqd-main-panel {
+  position: fixed !important;
+  z-index: 99999999999 !important;
+}
+
+#nprogress {
+  position: relative;
+  z-index: 9999999999;
+}
+
+.before,
+.after {
+  margin: 0;
+}
+
+.before figcaption,
+.after figcaption {
+  background: #fff;
+  border: 1px solid #c0c0c0;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  opacity: 0.8;
+  padding: 12px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 100%;
+}
+
+.before figcaption {
+  left: 12px;
+  background: #2563eb;
+}
+
+.after figcaption {
+  right: 12px;
+  background: #2563eb;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+::view-transition-old(root) {
+  animation-duration: 0.1s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+::view-transition-new(root) {
+  animation-duration: 0.1s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}

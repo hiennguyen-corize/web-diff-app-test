@@ -1,0 +1,56 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "ignorePatterns": ["**/dist/**", "**/node_modules/**"],
+  "rules": {
+    "curly": "error",
+    "lines-between-class-members": ["error", "always"],
+    "member-access": "off",
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-dupe-keys": "error",
+    "no-eval": "error",
+    "react-hooks/rules-of-hooks": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["*../**"]
+      }
+    ],
+    "no-restricted-syntax": ["error", "TSEnumDeclaration"],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "function",
+        "next": "function"
+      },
+      {
+        "blankLine": "always",
+        "prev": "block-like",
+        "next": "block-like"
+      }
+    ],
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "line": {
+          "exceptions": ["-", "="]
+        },
+        "block": {
+          "balanced": true
+        },
+        "markers": ["/"]
+      }
+    ],
+    "react/display-name": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "enableDangerousAutofixThisMayCauseInfiniteLoops": true
+      }
+    ],
+    "import/no-duplicates": ["error"],
+    "@typescript-eslint/no-explicit-any": "error"
+  }
+}

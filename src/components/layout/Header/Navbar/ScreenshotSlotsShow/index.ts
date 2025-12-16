@@ -1,0 +1,1 @@
+export { ScreenshotSlotsShow } from './ScreenshotSlotsShow';

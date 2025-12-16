@@ -1,0 +1,1 @@
+export { ScrollToTopContainer } from './ScrollToTopContainer';

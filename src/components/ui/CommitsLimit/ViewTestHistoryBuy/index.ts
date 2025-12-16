@@ -1,0 +1,1 @@
+export { ViewTestHistoryBuy } from './ViewTestHistoryBuy';

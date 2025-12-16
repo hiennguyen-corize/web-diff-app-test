@@ -1,0 +1,1 @@
+export { BlocksBackground } from './BlocksBackground';

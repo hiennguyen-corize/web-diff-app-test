@@ -1,0 +1,2 @@
+export const MODAL_ANIMATION_DURATION = 0.2;
+export const PREFETCH_IMAGE_DELAY_TIME = 1000;

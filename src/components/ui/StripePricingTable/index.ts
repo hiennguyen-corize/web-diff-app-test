@@ -1,0 +1,1 @@
+export { StripePricingTable } from './StripePricingTable';

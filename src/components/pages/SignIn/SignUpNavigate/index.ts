@@ -1,0 +1,1 @@
+export { SignUpNavigate } from './SignUpNavigate';
