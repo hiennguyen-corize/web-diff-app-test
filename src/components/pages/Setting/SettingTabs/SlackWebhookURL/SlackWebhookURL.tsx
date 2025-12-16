@@ -57,7 +57,7 @@ export const SlackWebhookURL = () => {
                 name='slackWebhookURL'
                 isError={!!error?.message}
                 errorMessage={error?.message}
-                placeholder='https://hooks.slack.com/services/YOUR/WEBHOOK/URL'
+                placeholder='Enter your Slack webhook URL here'
                 onChange={onChange}
               />
             </FormItem>
