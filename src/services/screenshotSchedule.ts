@@ -94,3 +94,22 @@ export const deleteScreenshotSchedule = async (
     userId,
   });
 };
+
+/**
+ * Pauses a screenshot schedule by setting the schedule to inactive.
+ */
+export const pauseScreenshotSchedule = async (
+  projectId: string,
+  reason: string,
+  metadata: Record<string, any> = {},
+) => {
+  const projectRef = doc(db, 'projects', projectId);
+  await updateDoc(projectRef, {
+    'screenshotSchedule.active': false,
+    'screenshotSchedule.pausedAt': new Date().toISOString(),
+    'screenshotSchedule.pauseReason': reason,
+    ...metadata,
+  });
+};
+
+export { batchScreenshotWithRetry, cancelBatchScreenshot } from '@/services/batchScreenshot';
