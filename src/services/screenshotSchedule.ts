@@ -94,3 +94,29 @@ export const deleteScreenshotSchedule = async (
     userId,
   });
 };
+
+/**
+ * Pauses all screenshot schedules for a project without deleting them.
+ * Sets isActive to false and records the pause reason.
+ */
+export const pauseScreenshotSchedule = async (
+  projectId: string,
+  reason?: string,
+) => {
+  const projectRef = doc(db, `/projects/${projectId}`);
+
+  const payload: Record<string, any> = {
+    'screenshotSchedule.isActive': false,
+    'screenshotSchedule.pausedAt': new Date().toISOString(),
+  };
+
+  if (reason) {
+    payload['screenshotSchedule.pauseReason'] = reason;
+  }
+
+  await updateDoc(projectRef, payload);
+
+  return { message: 'Schedule paused', projectId };
+};
+
+export { batchScreenshotWithRetry, cancelBatchScreenshot } from '@/services/batchScreenshot';
