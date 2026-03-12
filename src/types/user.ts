@@ -6,6 +6,7 @@ export type UserType = {
   displayName?: string;
   email?: string;
   lastLoginAt?: string;
+  notificationPrefsId?: string;
 };
 
 export type UserStatus = "active" | "inactive" | "suspended";
