@@ -6,3 +6,4 @@ export const handleCheckRole = async (uid: string) => {
   return userInfo?.rule === USER_RULE_TYPE.ADMIN;
 };
 // webhook test 1 - Thu Mar 12 08:57:30 +07 2026
+// live test after fix - Thu Mar 12 09:12:04 +07 2026
